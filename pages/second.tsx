@@ -12,7 +12,7 @@ export default function Second() {
     url: "",
     image: "",
   });
-  
+
   const fetchData = async () => {
     const resp = await axios.get("https://www.boredapi.com/api/activity");
     if (resp.data) {
@@ -29,28 +29,44 @@ export default function Second() {
     }
   };
 
+  const MetaTag = () => {
+    if (apiResponse !== undefined) {
+      return (
+        <Head>
+          <title>{commonInfoRender(apiResponse.activity)}</title>
+          <meta
+            name="description"
+            content={commonInfoRender(apiResponse.key)}
+          />
+          <meta
+            property="og:title"
+            content={commonInfoRender(apiResponse.activity)}
+          />
+          <meta
+            property="og:description"
+            content={commonInfoRender(apiResponse.key)}
+          />
+          <meta
+            property="og:image"
+            content={commonInfoRender(apiResponse.image)}
+          />
+          <meta property="og:url" content={commonInfoRender(apiResponse.url)} />
+          <meta property="og:type" content="website" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+      );
+    }
+    return <div className={styles.title}>Redirecting...</div>;
+  };
+
   useEffect(() => {
     fetchData().then((resp: any) => setApiResponse(resp));
   }, []);
 
   return (
     <>
-      <Head>
-        <title>{commonInfoRender(apiResponse.activity)}</title>
-        <meta name="description" content={commonInfoRender(apiResponse.key)} />
-        <meta property="og:title" content={commonInfoRender(apiResponse.activity)} />
-        <meta property="og:description" content={commonInfoRender(apiResponse.key)} />
-        <meta
-          property="og:image"
-          content={commonInfoRender(apiResponse.image)}
-        />
-        <meta property="og:url" content={commonInfoRender(apiResponse.url)} />
-        <meta property="og:type" content="website" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main className={styles.main}>
-        <div className={styles.title}>{apiResponse.url}</div>
-      </main>
+      <MetaTag></MetaTag>
+      <main className={styles.main}></main>
     </>
   );
 }
