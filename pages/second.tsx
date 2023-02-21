@@ -1,26 +1,55 @@
+import { TestResponse } from "@/common/interface";
+import { commonInfoRender } from "@/common/util";
 import styles from "@/styles/Home.module.css";
+import axios from "axios";
 import Head from "next/head";
+import { useState, useEffect } from "react";
 
 export default function Second() {
+  const [apiResponse, setApiResponse] = useState<TestResponse>({
+    activity: "Create a meal plan for the coming week",
+    key: "3491470",
+    url: "",
+    image: "",
+  });
+  
+  const fetchData = async () => {
+    const resp = await axios.get("https://www.boredapi.com/api/activity");
+    if (resp.data) {
+      console.log("fetchData", resp);
+      resp.data = {
+        activity: "Mission Landing",
+        key: "Redirect Link 2",
+        url: "https://file-paotang-uat.th-service.co.in/DEEPLINK/paotang-external-deeplink.html?destination=missionWeb",
+        image:
+          "https://mission-static-file-uat.storage.googleapis.com/mock/bg-landing.png",
+      };
+      location.href = resp.data.url;
+      return resp.data;
+    }
+  };
+
+  useEffect(() => {
+    fetchData().then((resp: any) => setApiResponse(resp));
+  }, []);
+
   return (
     <>
       <Head>
-        <title>Mission Landing</title>
-        <meta name="description" content="Redirect Link 2" />
-        <meta property="og:title" content="og: Mission Landing" />
-        <meta property="og:description" content="og: Redirect Link 2" />
-        <meta property="og:image" content="https://mission-static-file-uat.storage.googleapis.com/mock/bg-landing.png" />
+        <title>{commonInfoRender(apiResponse.activity)}</title>
+        <meta name="description" content={commonInfoRender(apiResponse.key)} />
+        <meta property="og:title" content={commonInfoRender(apiResponse.activity)} />
+        <meta property="og:description" content={commonInfoRender(apiResponse.key)} />
         <meta
-          property="og:url"
-          content="https://file-paotang-uat.th-service.co.in/DEEPLINK/paotang-external-deeplink.html?destination=missionWeb"
+          property="og:image"
+          content={commonInfoRender(apiResponse.image)}
         />
-        <meta http-equiv="refresh" content="1; url=https://file-paotang-uat.th-service.co.in/DEEPLINK/paotang-external-deeplink.html?destination=missionWeb"></meta>
+        <meta property="og:url" content={commonInfoRender(apiResponse.url)} />
         <meta property="og:type" content="website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className={styles.main}>
-        <h1 className={styles.title}>Redirecting...</h1>
+        <div className={styles.title}>{apiResponse.url}</div>
       </main>
     </>
   );
