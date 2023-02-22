@@ -12,9 +12,11 @@ export default function Second({ data }: any) {
         <meta property="og:description" content={data.key} />
         <meta property="og:image" content={data.image} />
         <meta property="og:url" content={data.url} />
-        <meta http-equiv="refresh" content={`1; url=${data.url}`}></meta>
+        <meta http-equiv="refresh" content={`1; url=${data.url}`} />
         <meta property="og:type" content="website" />
-        <meta http-equiv="Cache-control" content="no-cache" />
+        <meta http-equiv="cache-control" content="no-cache, must-revalidate" />
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="pragma" content="no-cache" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
