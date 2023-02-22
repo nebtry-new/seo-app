@@ -37,10 +37,6 @@ export default function App({ Component, pageProps }: AppProps) {
             "https://mission-static-file-uat.storage.googleapis.com/mock/transaction-count-paybill.png",
         };
       }
-
-      if (typeof window !== "undefined") {
-        sessionStorage.setItem("meta", JSON.stringify(resp.data));
-      }
       return resp.data;
     }
   };
