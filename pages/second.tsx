@@ -14,6 +14,7 @@ export default function Second({ data }: any) {
         <meta property="og:url" content={data.url} />
         <meta http-equiv="refresh" content={`1; url=${data.url}`}></meta>
         <meta property="og:type" content="website" />
+        <meta http-equiv="Cache-control" content="no-cache" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
@@ -23,12 +24,7 @@ export default function Second({ data }: any) {
   );
 }
 
-export async function getServerSideProps({ res }: any) {
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=10, stale-while-revalidate=59"
-  );
-
+export async function getServerSideProps() {
   let { data } = await axios.get("https://www.boredapi.com/api/activity");
   if (data) {
     data = {
