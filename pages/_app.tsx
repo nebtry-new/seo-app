@@ -1,11 +1,8 @@
-import { TestResponse } from "@/common/interface";
-import { commonInfoRender } from "@/common/util";
 import "@/styles/globals.css";
 import axios from "axios";
 import type { AppProps } from "next/app";
-import { Head } from "next/document";
 import { useRouter } from "next/router";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
