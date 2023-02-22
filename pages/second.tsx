@@ -23,7 +23,12 @@ export default function Second({ data }: any) {
   );
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }: any) {
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=10, stale-while-revalidate=59"
+  );
+
   let { data } = await axios.get("https://www.boredapi.com/api/activity");
   if (data) {
     data = {
