@@ -2,7 +2,7 @@ import styles from "@/styles/Home.module.css";
 import axios from "axios";
 import Head from "next/head";
 
-export default function Second({ data }) {
+export default function Second({ data }: any) {
   return (
     <>
       <Head>
