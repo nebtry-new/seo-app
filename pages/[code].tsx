@@ -27,9 +27,7 @@ export default function Index({ data, message }: any) {
   return <div>{message}</div>;
 }
 
-export const getServerSideProps: GetServerSideProps<{ data: Data }> = async (
-  context
-) => {
+export async function getServerSideProps(context: any) {
   try {
     let { data } = await axios.get(
       `https://seo-app-nebtry-new.vercel.app/api/links/${context.params.code}`
@@ -48,4 +46,4 @@ export const getServerSideProps: GetServerSideProps<{ data: Data }> = async (
       },
     };
   }
-};
+}
